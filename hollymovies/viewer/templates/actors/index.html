@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>Herci</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Jméno</th>
+        <th>datum narození</th>
+        <th>počet filmů</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for actor in actors %}
+      <tr>
+        <td><a href="{% url 'actor_detail' actor.id %}" class="link-offset-2 link-underline link-underline-opacity-0">{{ actor.name }} {{ actor.surname }}</a></td>
+        <td>{{ actor.birth_day }}</td>
+        <td>{{ actor.movie_count }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+<a href="{% url 'actor_create' %}" class="btn btn-primary">Založit herce</a>
+
+{% endblock %}

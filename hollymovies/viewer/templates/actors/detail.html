@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card text-center" style="">
+    <div class="card-header">
+        {{ actor.name }} {{ actor.surname }} ({{ actor.birth_date|date:"d.m.Y" }})
+    </div>
+    <div class="card-body">
+        <img src="{{ actor.image_url.url }}" class="card-img-top" alt="Obrázek herce nenalezen" style="max-width:360px;height:auto;">
+        <h5>Počet filmů: </h5>{{ actor.movie_count }}
+    </div>
+
+     <div class="card-footer text-body-secondary">
+         {% if perms.viewer.change_actor %}
+         <span class="text-start"><a href="{% url 'actor_update' actor.id %}" class="btn btn-primary">Edit</a></span>
+         {% endif %}
+         {% if perms.viewer.delete_actor %}
+         <span class="text-end"><a href="{% url 'actor_delete' actor.id %}" class="btn btn-danger">Delete</a></span>
+         {% endif %}
+
+        <p class="text-center">{{ actor.created|date:"d.m.Y H:i:s" }}</p>
+    </div>
+</div>
+{% endblock %}

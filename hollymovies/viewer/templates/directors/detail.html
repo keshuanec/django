@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card text-center" style="">
+    <div class="card-header">
+        {{ director.name }} {{ director.surname }} ({{ director.birth_date|date:"d.m.Y" }})
+    </div>
+    <div class="card-body">
+        <img src=".." class="card-img-top" alt="Obrázek filmu nenalezen" style="max-width:360px;height:auto;">
+        <h5>Počet filmů: </h5>{{ director.movie_count }}
+        {% if perms.viewer.change_director %}
+        <a href="#" class="btn btn-primary">Edit</a>
+        {% endif %}
+    </div>
+    <div class="card-footer text-body-secondary">
+        {{ director.created|date:"d.m.Y H:i:s" }}
+    </div>
+</div>
+{% endblock %}
