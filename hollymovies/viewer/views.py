@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from viewer.models import Movie, Actor, Director
+from viewer.models import Movie, Actor, Director, MoviesPremiere
 
 from django.views.generic import ListView, TemplateView, DetailView, FormView, UpdateView, DeleteView
 from django.contrib.auth.models import User, Group      # group je pro opravněni
@@ -51,7 +51,9 @@ def director_detail(request):
 classBased Views
 """
 
-
+class ActorView(ListView):
+    model = Actor
+    template_name = 'actors/index.html'
 
 class MovieView(ListView):
     model = Movie
@@ -124,8 +126,8 @@ class MovieCreateView(PermissionRequiredMixin, FormView):
             released=form.cleaned_data['released'],
             description=form.cleaned_data['description'],
             poster_url=form.cleaned_data['poster_url'],
-            genre_id=form.cleaned_data['genre_id'].id,
-            director_id=form.cleaned_data['director'].id,
+            genre=form.cleaned_data['genre'],
+            director=form.cleaned_data['director'],
         )
         movie.save()
 
@@ -158,6 +160,12 @@ class RegistrationView(FormView):
         user.groups.add(group)  #groups je z modelu User
 
         return super().form_valid(form)
+
+class MoviesPremiereView(ListView):
+    model = MoviesPremiere
+
+    template_name = 'movie_premiere/index.html'
+
 
 
 """

@@ -12,7 +12,6 @@ from .models import Genre, Movie, Director, Actor
 class MovieForm(ModelForm):
     class Meta:
         model = Movie
-
         fields = ('title', 'rating', 'released', 'description', 'poster_url', 'genre', 'director')
 
     title = CharField(label="Název filmu", max_length=128, widget=forms.TextInput(attrs={"class": "form-control"}))

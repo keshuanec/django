@@ -9,7 +9,7 @@
         <div class="text-center">
             <img src="{{ movie.poster_url.url }}" class="card-img-top" alt="Obrázek filmu nenalezen" style="max-width:360px;height:auto;">
             <h5 class="card-title">Režisér:
-                <a href="{% url 'director_detail' %}?director_id={{ movie.director.id }}" class="link-offset-2 link-underline link-underline-opacity-0">
+                <a href="{% url 'director_detail' %}?director={{ movie.director.id }}" class="link-offset-2 link-underline link-underline-opacity-0">
                     {{ movie.director.name }} {{ movie.director.surname }} ({{movie.director.birth_day}})
                 </a>
             </h5>

@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for actor in actors %}
+      {% for actor in object_list %}
       <tr>
         <td><a href="{% url 'actor_detail' actor.id %}" class="link-offset-2 link-underline link-underline-opacity-0">{{ actor.name }} {{ actor.surname }}</a></td>
         <td>{{ actor.birth_day }}</td>

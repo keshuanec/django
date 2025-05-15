@@ -2,6 +2,7 @@ from django.db.models import (
   DO_NOTHING, CharField, DateField, DateTimeField, ForeignKey, IntegerField,
   Model, TextField, ManyToManyField, CASCADE, ImageField, SET_NULL
 )
+from django.forms import BooleanField
 
 """
 Tabulka Genres:
@@ -49,7 +50,7 @@ class Actor(Model):
   surname = CharField(max_length=128)
   birth_day = DateField()
   movie_count = IntegerField(default=0)
-  image_url = ImageField(null=True)
+  image_url = ImageField(null=True, upload_to ='people_imgs/')
   created = DateTimeField(auto_now_add=True, null=True)
   updated = DateTimeField(auto_now_add=True, null=True)
 
@@ -72,7 +73,7 @@ class Director(Model):
   surname = CharField(max_length=128)
   birth_day = DateField()
   movie_count = IntegerField(default=0)
-  image_url = ImageField(null=True)
+  image_url = ImageField(null=True, upload_to ='people_imgs/')
   created = DateTimeField(auto_now_add=True, null=True)
   updated = DateTimeField(auto_now_add=True, null=True)
 
@@ -132,5 +133,14 @@ class Review(Model):
   movie = ForeignKey(Movie, on_delete=CASCADE)
   review = TextField(null=True)
   rating = IntegerField(null=True)
+  created = DateTimeField(auto_now_add=True, null=True)
+  updated = DateTimeField(auto_now_add=True, null=True)
+
+
+class MoviesPremiere(Model):
+  place = CharField(max_length=512)
+  date_and_time = DateTimeField(null=True)
+  movie = ForeignKey(Movie, on_delete=DO_NOTHING)
+  cinema = BooleanField()
   created = DateTimeField(auto_now_add=True, null=True)
   updated = DateTimeField(auto_now_add=True, null=True)

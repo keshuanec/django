@@ -27,8 +27,12 @@ from viewer.views import (hello, ahoj, index,
                           movie_detail, actor_detail,
                           director_detail, MovieView, ProfileView, RegistrationView,
                           MovieCreateView, ActorCreateView, ActorDetailView, ActorUpdateView, ActorDeleteView, MovieDetailView, MovieUpdateView,
-                          MovieDeleteView)
+                          MovieDeleteView, ActorView, MovieView, MoviesPremiereView)
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 """
 urlpatterns = [
@@ -71,8 +75,8 @@ urlpatterns = i18n_patterns(
     path('hello/<parametr>', hello),
     path('ahoj/', ahoj),
     path('', index, name="index"),
-    path('movies', movie_index, name="movies"),
-    path('actors', actor_index, name="actors"),
+    path('movies', MovieView.as_view(), name="movies"),
+    #path('actors', actor_index, name="actors"),
     #path('movie_detail', movie_detail, name="movie_detail"),
     #path('actor_detail', actor_detail, name="actor_detail"),
     path('director_detail', director_detail, name="director_detail"),
@@ -83,15 +87,23 @@ urlpatterns = i18n_patterns(
     path('movie/delete/<int:pk>/', MovieDeleteView.as_view(), name="movie_delete"),
 
     #actors
+    path('actors', ActorView.as_view(), name="actors"),
     path('actor_create', ActorCreateView.as_view(), name="actor_create"),
     path('actors/update/<int:pk>/', ActorUpdateView.as_view(), name="actor_update"),
     path('actor/<int:pk>/', ActorDetailView.as_view(), name="actor_detail"),
     path('actor/delete/<int:pk>/', ActorDeleteView.as_view(), name="actor_delete"),
 
+    #movie_premieres
+    path('movies_premieres', MoviesPremiereView.as_view(), name="movie_premieres"),
+
     #urls for auth
     path('accounts/', include("django.contrib.auth.urls")),
     path('accounts/profile', ProfileView.as_view(), name="profile"),
-    path('registration', RegistrationView.as_view(),name="registration")
+    path('registration', RegistrationView.as_view(),name="registration"),
+
+    # JVT token obtain and refreash
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 )
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
